@@ -1,0 +1,23 @@
+@import "../../variables.scss";
+
+.admin {
+    &__form {
+        margin-bottom: 50px;
+        &__control {
+            margin-bottom: 20px;
+        }
+        &__selects {
+            margin-bottom: 30px;
+            select {
+                cursor: pointer;
+                border: 2px solid $blue;
+                margin-right: 20px;
+                padding: 5px;
+                width: 200px;
+                @media (max-width: 462px) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}

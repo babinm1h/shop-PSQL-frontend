@@ -1,9 +1,22 @@
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import LoginForm from '../../components/Auth/LoginForm/LoginForm';
+import SignUpForm from '../../components/Auth/LoginForm/SignUpForm';
+import { AllRoutes } from '../../routes';
+import "./Auth.scss"
 
 const Auth = () => {
+    const location = useLocation()
+    const isLoginPage = location.pathname === AllRoutes.LOGIN
+
     return (
-        <div>
-            au
+        <div className="auth">
+            <div className="auth__content">
+                <div className="auth__title">Авторизация</div>
+                {isLoginPage
+                    ? <LoginForm />
+                    : <SignUpForm />}
+            </div>
         </div>
     );
 };

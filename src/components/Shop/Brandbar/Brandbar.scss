@@ -1,0 +1,28 @@
+@import "../../../variables.scss";
+
+.shop__brands {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    &__item {
+        padding: 0 20px;
+        border-radius: 9999px;
+        border: 2px solid $invisibleBlack;
+        margin-right: 15px;
+        height: 35px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.1s linear;
+        font-size: 16px;
+        text-transform: capitalize;
+        &_active {
+            color: $blue;
+        }
+        &:hover {
+            color: $blue;
+        }
+    }
+}

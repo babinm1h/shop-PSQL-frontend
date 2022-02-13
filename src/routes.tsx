@@ -8,7 +8,7 @@ import Shop from "./pages/Shop/Shop";
 
 export enum AllRoutes {
     ADMIN = "/admin",
-    DEVICE = "/device/:id",
+    DEVICE = "/device",
     SHOP = "/",
     LOGIN = "/login",
     REGISTR = "/registration",
@@ -27,6 +27,6 @@ export const publicRoutes = [
     { path: AllRoutes.SHOP, element: <Shop /> },
     { path: AllRoutes.LOGIN, element: <Auth /> },
     { path: AllRoutes.REGISTR, element: <Auth /> },
-    { path: AllRoutes.DEVICE, element: <DevicePage /> },
+    { path: AllRoutes.DEVICE + '/:id', element: <DevicePage /> },
     { path: AllRoutes.MAIN, element: <Shop /> }
 ]

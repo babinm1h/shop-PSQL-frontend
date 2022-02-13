@@ -1,0 +1,17 @@
+@import "../../variables.scss";
+
+.form__label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: $blue;
+}
+.form__input {
+    border-bottom: 2px solid $lightblack;
+    padding: 5px;
+    width: 100%;
+    font-size: 15px;
+    &:focus {
+        border-bottom: 2px solid $blue;
+    }
+}

@@ -1,0 +1,44 @@
+@import "../../../variables.scss";
+
+.shop__devices {
+    display: flex;
+    flex-direction: column;
+}
+.shop-device {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    border: 2px solid $invisibleBlack;
+    border-bottom: 0;
+    &:last-of-type {
+        border-bottom: 2px solid $invisibleBlack;
+    }
+    &__name {
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    &__img {
+        width: 200px;
+        height: 200px;
+    }
+    &__info {
+        flex: 1 1 auto;
+        font-size: 16px;
+    }
+    &__price {
+        font-weight: bold;
+        font-size: 21px;
+        margin-bottom: 15px;
+        align-self: flex-end;
+    }
+    &__buy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        button {
+            font-size: 16px;
+            font-weight: normal;
+            padding: 0 35px;
+        }
+    }
+}
