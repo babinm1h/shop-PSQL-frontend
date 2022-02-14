@@ -1,5 +1,4 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import LoginForm from '../../components/Auth/LoginForm/LoginForm';
 import SignUpForm from '../../components/Auth/LoginForm/SignUpForm';
 import { AllRoutes } from '../../routes';
@@ -12,7 +11,7 @@ const Auth = () => {
     return (
         <div className="auth">
             <div className="auth__content">
-                <div className="auth__title">Авторизация</div>
+                <div className="auth__title">{isLoginPage ? "Вход" : "Регистрация"}</div>
                 {isLoginPage
                     ? <LoginForm />
                     : <SignUpForm />}

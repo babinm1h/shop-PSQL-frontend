@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx"
+import { DeviceApi } from "../api/deviceApi"
 import { IBrand, IDevice, IType } from "../types/dbModels"
 
 
@@ -9,25 +10,17 @@ export class DeviceStore {
     _types: IType[]
     _selectedType: IType
     _selectedBrand: IBrand
+    _devicePage: IDevice
+    _loading: boolean
 
     constructor() {
-        this._devices = [
-            { id: 1, name: "pecca 7623", price: 77000, rating: 4, img: "https://i.pinimg.com/originals/d8/c1/31/d8c131ada2199d6dc691a7eff893b103.png" },
-            { id: 2, name: "pecca 7623", price: 77000, rating: 4, img: "https://i.pinimg.com/originals/d8/c1/31/d8c131ada2199d6dc691a7eff893b103.png" },
-            { id: 3, name: "pecca 7623", price: 77000, rating: 4, img: "https://i.pinimg.com/originals/d8/c1/31/d8c131ada2199d6dc691a7eff893b103.png" },
-            { id: 4, name: "pecca 7623", price: 77000, rating: 4, img: "https://i.pinimg.com/originals/d8/c1/31/d8c131ada2199d6dc691a7eff893b103.png" },
-            { id: 5, name: "pecca 7623", price: 77000, rating: 4, img: "https://i.pinimg.com/originals/d8/c1/31/d8c131ada2199d6dc691a7eff893b103.png" },
-        ]
-        this._brands = [
-            { id: 1, name: "intel" },
-            { id: 2, name: "Ryzen" },
-        ]
-        this._types = [
-            { id: 1, name: "Computer" },
-            { id: 2, name: "Smartphone" },
-        ]
+        this._devices = []
+        this._brands = []
+        this._types = []
         this._selectedType = {} as IType
         this._selectedBrand = {} as IBrand
+        this._devicePage = {} as IDevice
+        this._loading = true
 
         makeAutoObservable(this)
     }
@@ -48,6 +41,12 @@ export class DeviceStore {
     setSelectedBrand(payload: IBrand) {
         this._selectedBrand = payload
     }
+    setDevicePage(payload: IDevice) {
+        this._devicePage = payload
+    }
+    setLoading(bool: boolean) {
+        this._loading = bool
+    }
 
 
     get types() {
@@ -64,6 +63,57 @@ export class DeviceStore {
     }
     get selectedBrand() {
         return this._selectedBrand
+    }
+    get devicePage() {
+        return this._devicePage
+    }
+    get loading() {
+        return this._loading
+    }
+
+    async fetchTypes() {
+        try {
+            const data = await DeviceApi.fetchTypes()
+            this.setTypes(data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async fetchBrands() {
+        try {
+            const data = await DeviceApi.fetchBrands()
+            this.setBrands(data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
+    async fetchDevices() {
+        try {
+            const data = await DeviceApi.fetchDevices()
+            this.setDevices(data.rows)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async fetchDevicePage(id: string) {
+        try {
+            const data = await DeviceApi.fetchOneDevice(id)
+            this.setDevicePage(data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async createType(name: string) {
+        await DeviceApi.createType(name)
+    }
+
+    async createBrand(name: string) {
+        await DeviceApi.createBrand(name)
     }
 
 }

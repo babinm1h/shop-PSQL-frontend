@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { StoreContext } from '../../..';
+import { REACT_APP_API_URL } from '../../../api';
 import { AllRoutes } from '../../../routes';
 import "./DeviceList.scss"
 
@@ -13,7 +14,7 @@ const DeviceList = observer(() => {
             {store.deviceStore.devices.map(d => <li className="shop__devices__item shop-device"
                 key={d.id}>
                 <NavLink to={AllRoutes.DEVICE + `/${d.id}`}>
-                    <img src={d.img} alt="img" className="shop-device__img" />
+                    <img src={REACT_APP_API_URL+d.img} alt="img" className="shop-device__img" />
                 </NavLink>
                 <div className="shop-device__info">
                     <h1 className="shop-device__name">{d.name}</h1>

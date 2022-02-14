@@ -1,19 +1,26 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AllRoutes } from '../../../routes';
 import * as Yup from "yup"
 import FormControl from '../../FormControl/FormControl';
+import { StoreContext } from '../../..';
+import { observer } from 'mobx-react-lite';
 
-const LoginForm = () => {
+const LoginForm = observer(() => {
+    const { store } = React.useContext(StoreContext)
+    const navigate = useNavigate()
+
     const formik = useFormik({
         initialValues: {
             email: "",
             password: ""
         },
 
-        onSubmit: async () => {
-
+        onSubmit: async (values, { setSubmitting }) => {
+            setSubmitting(true)
+            store.userStore.login(values.email, values.password)
+            navigate(AllRoutes.SHOP)
         },
 
         validationSchema: Yup.object().shape({
@@ -43,15 +50,18 @@ const LoginForm = () => {
 
             <div className="auth__form__actions">
                 <button type="submit" className='btn auth__form__btn'
-                    disabled={!!formik.errors.email || !!formik.errors.password}>
+                    disabled={!!formik.errors.email || !!formik.errors.password || formik.isSubmitting}>
                     Войти
                 </button>
                 <div>Нет аккаунта?
                     <NavLink to={AllRoutes.REGISTR}>Регистрация</NavLink>
                 </div>
             </div>
+            {store.userStore.loginError && <div className="form__error">
+                {store.userStore.loginError}
+            </div>}
         </form>
     );
-};
+});
 
 export default LoginForm;

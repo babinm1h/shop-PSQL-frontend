@@ -2,16 +2,22 @@ import React from 'react';
 import FormControl from '../../FormControl/FormControl';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
+import { StoreContext } from '../../..';
 
 
-const BrandForm = () => {
+const BrandForm = observer(() => {
+    const { store } = React.useContext(StoreContext)
+
     const formik = useFormik({
         initialValues: {
             brand: "",
         },
 
-        onSubmit: async () => {
-
+        onSubmit: async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true)
+            store.deviceStore.createBrand(values.brand)
+            resetForm()
         },
 
         validationSchema: Yup.object().shape({
@@ -28,11 +34,12 @@ const BrandForm = () => {
                 {formik.errors.brand && <div className="form__error">{formik.errors.brand}</div>}
             </div>
 
-            <button type="submit" className="btn" disabled={!!formik.errors.brand}>
+            <button type="submit" className="btn"
+                disabled={!!formik.errors.brand || formik.isSubmitting}>
                 Добавить бренд
             </button>
         </form>
     );
-};
+});
 
 export default BrandForm;

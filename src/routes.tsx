@@ -13,7 +13,7 @@ export enum AllRoutes {
     LOGIN = "/login",
     REGISTR = "/registration",
     BASKET = "basket",
-    MAIN = "*"
+    MAIN = "/*"
 }
 
 

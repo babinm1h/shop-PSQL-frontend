@@ -1,27 +1,49 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useParams } from 'react-router';
+import { StoreContext } from '../..';
+import { REACT_APP_API_URL } from '../../api';
+import Loader from '../../components/Loader/Loader';
 import "./DevicePage.scss"
 
-const DevicePage = () => {
+const DevicePage = observer(() => {
+    const { store } = React.useContext(StoreContext)
+    const { id } = useParams()
+
+    React.useEffect(() => {
+        if (id) {
+            store.deviceStore.fetchDevicePage(id)
+        }
+        store.deviceStore.setLoading(false)
+    }, [])
+
+    if (store.deviceStore.loading) {
+        return <div className="loading"><Loader /></div>
+    }
+
     return (
         <div className="device-page">
-            <h1 className="device-page__name">Processor intel core i5-10400f</h1>
+            <h1 className="device-page__name">{store.deviceStore.devicePage.name}</h1>
             <div className="device-page__content">
                 <div className="device-page__img">
-                    <img src="https://cache3.youla.io/files/images/orig/5d/be/5dbecc6580e08e9dca4da598.jpg" alt="device" />
+                    <img src={REACT_APP_API_URL + store.deviceStore.devicePage.img} alt="device" />
                 </div>
                 <div className="device-page__info">
                     <div className="device-page__description">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ex ab, ad totam quia labore quaerat, autem voluptas mollitia numquam tempore animi id ut architecto placeat, ea cum. Quaerat, rem.
                     </div>
-                    <div className="device-page__rating">Rating: 4</div>
+                    <div className="device-page__rating">
+                        Rating: {store.deviceStore.devicePage.rating}</div>
                     <div className="device-page__buy">
-                        <div className="device-page__price">77000 ₽</div>
+                        <div className="device-page__price">
+                            {store.deviceStore.devicePage.price} ₽
+                        </div>
                         <button className="btn">Купить</button>
                     </div>
                 </div>
             </div>
         </div>
     );
-};
+});
 
 export default DevicePage;

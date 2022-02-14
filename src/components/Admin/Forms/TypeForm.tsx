@@ -2,16 +2,22 @@ import React from 'react';
 import FormControl from '../../FormControl/FormControl';
 import * as Yup from "yup"
 import { useFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
+import { StoreContext } from '../../..';
 
 
-const TypeForm = () => {
+const TypeForm = observer(() => {
+    const { store } = React.useContext(StoreContext)
+
     const formik = useFormik({
         initialValues: {
             type: "",
         },
 
-        onSubmit: async () => {
-
+        onSubmit: async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true)
+            store.deviceStore.createType(values.type)
+            resetForm()
         },
 
         validationSchema: Yup.object().shape({
@@ -33,6 +39,6 @@ const TypeForm = () => {
             </button>
         </form>
     );
-};
+});
 
 export default TypeForm;
