@@ -31,6 +31,7 @@ const DevicePage = observer(() => {
                 <div className="device-page__info">
                     <div className="device-page__description">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit ex ab, ad totam quia labore quaerat, autem voluptas mollitia numquam tempore animi id ut architecto placeat, ea cum. Quaerat, rem.
+                        <p className="device-page__brand"></p>
                     </div>
                     <div className="device-page__rating">
                         Rating: {store.deviceStore.devicePage.rating}</div>
@@ -41,6 +42,16 @@ const DevicePage = observer(() => {
                         <button className="btn">Купить</button>
                     </div>
                 </div>
+            </div>
+
+            <div className="device-page__charact device__charact">
+                <h2>Характеристики {store.deviceStore.devicePage.name}</h2>
+                {store.deviceStore.devicePage.info && store.deviceStore.devicePage.info.map(i =>
+                    <div className="device__charact__item">
+                        <div className="device__charact__title">{i.title}</div>
+                        <div className="device__charact__value">{i.description}</div>
+                    </div>
+                )}
             </div>
         </div>
     );

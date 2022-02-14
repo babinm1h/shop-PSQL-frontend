@@ -5,12 +5,8 @@ import { useFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../..';
 import { AiOutlineCloseCircle } from "react-icons/ai"
+import { IDevice, IDeviceInfo } from '../../../types/dbModels';
 
-interface IDeviceInfo {
-    title: string
-    description: string,
-    number: number
-}
 
 const DeviceForm = observer(() => {
     const [info, setInfo] = React.useState<IDeviceInfo[]>([])
@@ -23,15 +19,27 @@ const DeviceForm = observer(() => {
     const formik = useFormik({
         initialValues: {
             name: "",
-            type: "",
-            brand: "",
+            type: "1",
+            brand: "1",
             price: 0,
             img: {} as File,
             info: [] as IDeviceInfo[]
         },
 
         onSubmit: async (values, { setSubmitting, resetForm }) => {
-            values.info = info
+            if (values.info.length > 0) {
+                values.info = info
+            }
+
+            const fd = new FormData()
+            fd.append("name", values.name)
+            fd.append("typeId", values.type)
+            fd.append("price", `${values.price}`)
+            fd.append("brandId", values.brand)
+            fd.append("img", values.img)
+            fd.append("info", JSON.stringify(info))
+            
+            store.deviceStore.createDevice(fd)
             setSubmitting(true)
             setInfo([])
             resetForm()
@@ -40,9 +48,7 @@ const DeviceForm = observer(() => {
         validationSchema: Yup.object().shape({
             name: Yup.string().required("Обязательное поле")
                 .min(2, "Длина от 2 до 35 сивмолов").max(35, "Длина от 2 до 35 сивмолов"),
-            type: Yup.string().required("Выберите тип"),
-            brand: Yup.string().required("Выберите бренд"),
-            price: Yup.number().required("Введите цену").max(12, "Цена не более 12 чисел")
+
         })
     })
 
@@ -62,12 +68,14 @@ const DeviceForm = observer(() => {
             <div className="admin__form__selects">
                 <select name="type" value={formik.values.type} onChange={formik.handleChange}>
                     <option disabled={true}>Выберите тип</option>
-                    {store.deviceStore.types.map(t => <option key={t.id}>{t.name}</option>)}
+                    {store.deviceStore.types.map(t =>
+                        <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
 
                 <select name="brand" value={formik.values.brand} onChange={formik.handleChange}>
-                    <option disabled={true}>Выберите бренд</option>
-                    {store.deviceStore.brands.map(b => <option key={b.id}>{b.name}</option>)}
+                    <option disabled={true} >Выберите бренд</option>
+                    {store.deviceStore.brands.map(b =>
+                        <option key={b.id} value={b.id}>{b.name}</option>)}
                 </select>
             </div>
 

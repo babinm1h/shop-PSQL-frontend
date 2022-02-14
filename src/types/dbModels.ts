@@ -15,10 +15,17 @@ export interface IBrand {
     name: string
 }
 
+export interface IDeviceInfo {
+    title: string
+    description: string,
+    number: number
+}
+
 export interface IDevice {
     id: number
     name: string
     price: number
     img: string
     rating: number
+    info?: IDeviceInfo[]
 }

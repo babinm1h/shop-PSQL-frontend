@@ -90,9 +90,9 @@ export class DeviceStore {
     }
 
 
-    async fetchDevices() {
+    async fetchDevices(typeId?: number, brandId?: number) {
         try {
-            const data = await DeviceApi.fetchDevices()
+            const data = await DeviceApi.fetchDevices(typeId, brandId)
             this.setDevices(data.rows)
         } catch (err) {
             console.log(err);
@@ -114,6 +114,10 @@ export class DeviceStore {
 
     async createBrand(name: string) {
         await DeviceApi.createBrand(name)
+    }
+
+    async createDevice(device: FormData) {
+        await DeviceApi.createDevice(device)
     }
 
 }

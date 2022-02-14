@@ -34,13 +34,23 @@ export class DeviceApi {
 
 
     // devices
-    static async fetchDevices(): Promise<IFetchDevices> {
-        const res = await $host.get<IFetchDevices>("api/device")
+    static async fetchDevices(typeId?: number, brandId?: number): Promise<IFetchDevices> {
+        const res = await $host.get<IFetchDevices>(
+            `api/device${brandId ? `?brandId=${brandId}` : ""}${typeId ? `&typeId=${typeId}` : ""}`
+        )
         return res.data
     }
 
     static async fetchOneDevice(id: string): Promise<IDevice> {
         const res = await $host.get<IDevice>(`api/device/${id}`)
+        return res.data
+    }
+
+
+    static async createDevice(device: FormData): Promise<IDevice> {
+        const res = await $authHost.post<IDevice>(`api/device/`, device)
+        console.log(res);
+
         return res.data
     }
 }

@@ -11,9 +11,9 @@ const Shop = observer(() => {
 
     React.useEffect(() => {
         store.deviceStore.fetchBrands()
-        store.deviceStore.fetchDevices()
+        store.deviceStore.fetchDevices(store.deviceStore.selectedType.id, store.deviceStore.selectedBrand.id,)
         store.deviceStore.fetchTypes()
-    }, [])
+    }, [store.deviceStore.selectedType.id, store.deviceStore.selectedBrand.id])
 
 
     return (
