@@ -13,6 +13,10 @@ export class DeviceStore {
     _devicePage: IDevice
     _loading: boolean
 
+    _page: number
+    _totalCount: number
+    _limit: number
+
     constructor() {
         this._devices = []
         this._brands = []
@@ -21,6 +25,10 @@ export class DeviceStore {
         this._selectedBrand = {} as IBrand
         this._devicePage = {} as IDevice
         this._loading = true
+
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 3
 
         makeAutoObservable(this)
     }
@@ -36,9 +44,11 @@ export class DeviceStore {
         this._types = payload
     }
     setSelectedType(payload: IType) {
+        this.setPage(1)
         this._selectedType = payload
     }
     setSelectedBrand(payload: IBrand) {
+        this.setPage(1)
         this._selectedBrand = payload
     }
     setDevicePage(payload: IDevice) {
@@ -46,6 +56,15 @@ export class DeviceStore {
     }
     setLoading(bool: boolean) {
         this._loading = bool
+    }
+    setPage(page: number) {
+        this._page = page
+    }
+    setTotalCount(num: number) {
+        this._totalCount = num
+    }
+    setLimit(limit: number) {
+        this._limit = limit
     }
 
 
@@ -70,6 +89,15 @@ export class DeviceStore {
     get loading() {
         return this._loading
     }
+    get page() {
+        return this._page
+    }
+    get totalCount() {
+        return this._totalCount
+    }
+    get limit() {
+        return this._limit
+    }
 
     async fetchTypes() {
         try {
@@ -90,10 +118,11 @@ export class DeviceStore {
     }
 
 
-    async fetchDevices(typeId?: number, brandId?: number) {
+    async fetchDevices(typeId?: number, brandId?: number, page?: number) {
         try {
-            const data = await DeviceApi.fetchDevices(typeId, brandId)
+            const data = await DeviceApi.fetchDevices(typeId, brandId, page)
             this.setDevices(data.rows)
+            this.setTotalCount(data.count)
         } catch (err) {
             console.log(err);
         }

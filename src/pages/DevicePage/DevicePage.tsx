@@ -47,7 +47,7 @@ const DevicePage = observer(() => {
             <div className="device-page__charact device__charact">
                 <h2>Характеристики {store.deviceStore.devicePage.name}</h2>
                 {store.deviceStore.devicePage.info && store.deviceStore.devicePage.info.map(i =>
-                    <div className="device__charact__item">
+                    <div key={i.number} className="device__charact__item">
                         <div className="device__charact__title">{i.title}</div>
                         <div className="device__charact__value">{i.description}</div>
                     </div>

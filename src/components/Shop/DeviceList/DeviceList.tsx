@@ -9,12 +9,18 @@ import "./DeviceList.scss"
 const DeviceList = observer(() => {
     const { store } = React.useContext(StoreContext)
 
+    if (store.deviceStore.totalCount === 0) {
+        return <h2 className="page_empty">Список пуст</h2>
+    }
+
     return (
         <ul className="shop__devices">
             {store.deviceStore.devices.map(d => <li className="shop__devices__item shop-device"
                 key={d.id}>
                 <NavLink to={AllRoutes.DEVICE + `/${d.id}`}>
-                    <img src={REACT_APP_API_URL+d.img} alt="img" className="shop-device__img" />
+                    <div className="shop-device__img">
+                        <img src={REACT_APP_API_URL + d.img} alt="img" />
+                    </div>
                 </NavLink>
                 <div className="shop-device__info">
                     <h1 className="shop-device__name">{d.name}</h1>

@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../..';
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import { IDevice, IDeviceInfo } from '../../../types/dbModels';
+import {  IDeviceInfo } from '../../../types/dbModels';
 
 
 const DeviceForm = observer(() => {
@@ -38,7 +38,7 @@ const DeviceForm = observer(() => {
             fd.append("brandId", values.brand)
             fd.append("img", values.img)
             fd.append("info", JSON.stringify(info))
-            
+
             store.deviceStore.createDevice(fd)
             setSubmitting(true)
             setInfo([])

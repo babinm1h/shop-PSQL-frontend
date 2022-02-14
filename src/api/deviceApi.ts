@@ -34,9 +34,9 @@ export class DeviceApi {
 
 
     // devices
-    static async fetchDevices(typeId?: number, brandId?: number): Promise<IFetchDevices> {
+    static async fetchDevices(typeId?: number, brandId?: number, page?: number, limit = 3): Promise<IFetchDevices> {
         const res = await $host.get<IFetchDevices>(
-            `api/device${brandId ? `?brandId=${brandId}` : ""}${typeId ? `&typeId=${typeId}` : ""}`
+            `api/device`, { params: { typeId, brandId, page, limit } }
         )
         return res.data
     }
