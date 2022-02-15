@@ -14,6 +14,7 @@ const Navbar = observer(() => {
         }
     }
 
+
     return (
         <header className="header">
             <div className="header__row">
@@ -22,6 +23,9 @@ const Navbar = observer(() => {
                 </NavLink>
                 <div className="header__actions">
                     {store.userStore.isAuth ? <>
+                        <NavLink to={AllRoutes.BASKET}>
+                            <button className="btn">Корзина</button>
+                        </NavLink>
                         <NavLink to={AllRoutes.ADMIN}>
                             <button className="btn">Админ панель</button>
                         </NavLink>

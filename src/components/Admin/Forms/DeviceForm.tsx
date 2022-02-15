@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { observer } from 'mobx-react-lite';
 import { StoreContext } from '../../..';
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import {  IDeviceInfo } from '../../../types/dbModels';
+import { IDeviceInfo } from '../../../types/dbModels';
 
 
 const DeviceForm = observer(() => {
@@ -80,7 +80,7 @@ const DeviceForm = observer(() => {
             </div>
 
             <div className="admin__form__control">
-                <input type="file" name="img"
+                <input type="file" name="img" accept="image/png, image/jpg, image/jpeg"
                     onChange={(e) => formik.setFieldValue("img", e.target.files?.[0])} />
             </div>
 

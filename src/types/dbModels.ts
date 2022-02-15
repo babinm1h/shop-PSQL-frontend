@@ -29,3 +29,10 @@ export interface IDevice {
     rating: number
     info?: IDeviceInfo[]
 }
+
+
+export interface ICartDevice {
+    device: IDevice
+    id: number
+    deviceId: number
+}

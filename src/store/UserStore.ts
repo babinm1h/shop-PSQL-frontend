@@ -86,6 +86,7 @@ export class UserStore {
     logout() {
         this.setAuth(false)
         this.setUser({} as IUser)
+        localStorage.removeItem("token")
     }
 
 }

@@ -17,7 +17,6 @@ export class DeviceApi {
 
     static async createType(name: string): Promise<IType> {
         const res = await $authHost.post<IType>("api/type", { name })
-        console.log(res);
         return res.data
     }
 
@@ -49,8 +48,6 @@ export class DeviceApi {
 
     static async createDevice(device: FormData): Promise<IDevice> {
         const res = await $authHost.post<IDevice>(`api/device/`, device)
-        console.log(res);
-
         return res.data
     }
 }

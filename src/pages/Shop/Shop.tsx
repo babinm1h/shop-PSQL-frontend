@@ -12,9 +12,10 @@ const Shop = observer(() => {
     const deviceStore = store.deviceStore
 
     React.useEffect(() => {
-        store.deviceStore.fetchBrands()
-        store.deviceStore.fetchDevices()
-        store.deviceStore.fetchTypes()
+        deviceStore.fetchBrands()
+        deviceStore.fetchDevices()
+        deviceStore.fetchTypes()
+        store.cartStore.getCartItems()
     }, [])
 
 

@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import LoginForm from '../../components/Auth/LoginForm/LoginForm';
-import SignUpForm from '../../components/Auth/LoginForm/SignUpForm';
+import LoginForm from '../../components/Auth/AuthForms/LoginForm';
+import SignUpForm from '../../components/Auth/AuthForms/SignUpForm';
 import { AllRoutes } from '../../routes';
 import "./Auth.scss"
 
