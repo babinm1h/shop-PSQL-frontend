@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# REACT, PSQL, EXPRESS, TYPESCRIPT MOBX app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
